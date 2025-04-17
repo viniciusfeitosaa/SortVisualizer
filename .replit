@@ -27,6 +27,14 @@ args = "Sorting Algorithm VNC"
 task = "workflow.run"
 args = "Console Sorter"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Demo Automática"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "JavaFX Sorting App"
+
 [[workflows.workflow]]
 name = "Sorting Algorithm Visualizer"
 author = "agent"
@@ -83,6 +91,34 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.console.ConsoleMain"
+
+[[workflows.workflow]]
+name = "Demo Automática"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.console.ConsoleDemoMain"
+
+[[workflows.workflow]]
+name = "JavaFX Sorting App"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac -d bin -cp /nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib/*:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib src/main/java/com/sortalgo/**/*.java && java -cp bin:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib/*:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib --module-path /nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib --add-modules javafx.controls,javafx.fxml com.sortalgo.javafx.Main"
 
 [deployment]
 run = ["sh", "-c", "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"]
