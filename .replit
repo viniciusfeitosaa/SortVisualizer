@@ -23,6 +23,10 @@ args = "sort_algorithm_visualizer"
 task = "workflow.run"
 args = "Sorting Algorithm VNC"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Console Sorter"
+
 [[workflows.workflow]]
 name = "Sorting Algorithm Visualizer"
 author = "agent"
@@ -65,6 +69,20 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.Main"
+
+[[workflows.workflow]]
+name = "Console Sorter"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.console.ConsoleMain"
 
 [deployment]
 run = ["sh", "-c", "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"]
