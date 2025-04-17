@@ -1,0 +1,52 @@
+modules = ["java"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Sorting Algorithm Visualizer"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "sort_algorithm_visualizer"
+
+[[workflows.workflow]]
+name = "Sorting Algorithm Visualizer"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "sort_algorithm_visualizer"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "java -cp src com.sortalgo.Main"
+
+[deployment]
+run = ["sh", "-c", "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"]
