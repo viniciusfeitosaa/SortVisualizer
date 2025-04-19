@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import com.sortalgo.algorithm.SortingAlgorithm;
 import com.sortalgo.model.AlgorithmObserver;
@@ -99,11 +101,16 @@ public class SortingInfoPane extends VBox implements AlgorithmObserver {
     }
     
     @Override
-    public void onAlgorithmStep(SortingEvent event) {
+    public void onSortingStep(SortingEvent event) {
         if (event.isFirstStep()) {
             updateAlgorithmInfo(event.getAlgorithm());
         }
         
+        updateStatistics(event);
+    }
+    
+    @Override
+    public void onSortingComplete(SortingEvent event) {
         updateStatistics(event);
     }
 }

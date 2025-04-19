@@ -4,6 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import com.sortalgo.model.AlgorithmObserver;
 import com.sortalgo.model.SortingEvent;
@@ -125,7 +127,12 @@ public class SortingVisualizer extends Pane implements AlgorithmObserver {
     }
     
     @Override
-    public void onAlgorithmStep(SortingEvent event) {
+    public void onSortingStep(SortingEvent event) {
         drawArray(event.getCurrentArray(), event.getHighlightIndices());
+    }
+    
+    @Override
+    public void onSortingComplete(SortingEvent event) {
+        drawArray(event.getCurrentArray(), new int[0]);
     }
 }
