@@ -70,4 +70,33 @@ public interface SortingAlgorithm {
      * @return The space complexity (e.g., "O(1)" or "O(n)")
      */
     String getSpaceComplexity();
+    
+    /**
+     * Sort an array directly without stepping through.
+     * 
+     * @param array The array to be sorted
+     * @return The final SortingEvent with the sorted array
+     */
+    default SortingEvent sort(int[] array) {
+        init(array);
+        return sort();
+    }
+    
+    /**
+     * Get the number of comparisons performed.
+     * 
+     * @return Number of comparisons
+     */
+    default int getComparisons() {
+        return 0;
+    }
+    
+    /**
+     * Get the number of swaps performed.
+     * 
+     * @return Number of swaps
+     */
+    default int getSwaps() {
+        return 0;
+    }
 }

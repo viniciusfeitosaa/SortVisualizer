@@ -244,4 +244,14 @@ public class QuickSort implements SortingAlgorithm {
     public String getSpaceComplexity() {
         return "O(log n)";
     }
+    
+    @Override
+    public int getComparisons() {
+        return comparisons;
+    }
+    
+    @Override
+    public int getSwaps() {
+        return swaps;
+    }
 }

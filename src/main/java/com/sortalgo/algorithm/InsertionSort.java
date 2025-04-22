@@ -155,4 +155,14 @@ public class InsertionSort implements SortingAlgorithm {
     public String getSpaceComplexity() {
         return "O(1)";
     }
+    
+    @Override
+    public int getComparisons() {
+        return comparisons;
+    }
+    
+    @Override
+    public int getSwaps() {
+        return swaps;
+    }
 }

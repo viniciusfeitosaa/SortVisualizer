@@ -13,18 +13,6 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Sorting Algorithm Visualizer"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "sort_algorithm_visualizer"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Sorting Algorithm VNC"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Console Sorter"
 
 [[workflows.workflow.tasks]]
@@ -33,50 +21,7 @@ args = "Demo Automática"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "JavaFX Sorting App"
-
-[[workflows.workflow]]
-name = "Sorting Algorithm Visualizer"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"
-waitForPort = 5000
-
-[[workflows.workflow]]
-name = "sort_algorithm_visualizer"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "java -cp src com.sortalgo.Main"
-
-[[workflows.workflow]]
-name = "Sorting Algorithm VNC"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.Main"
+args = "Visualizador de Algoritmos"
 
 [[workflows.workflow]]
 name = "Console Sorter"
@@ -107,7 +52,7 @@ task = "shell.exec"
 args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.console.ConsoleDemoMain"
 
 [[workflows.workflow]]
-name = "JavaFX Sorting App"
+name = "Visualizador de Algoritmos"
 author = "agent"
 
 [workflows.workflow.metadata]
@@ -118,7 +63,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "javac -d bin -cp /nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib/*:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib src/main/java/com/sortalgo/**/*.java && java -cp bin:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib/*:/nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib --module-path /nix/store/hyzgrhm9zygz1yqlk5g2vwqrq14v35s0-openjfx-22/lib --add-modules javafx.controls,javafx.fxml com.sortalgo.javafx.Main"
+args = "javac -d bin src/main/java/com/sortalgo/**/*.java && java -cp bin com.sortalgo.Main"
 
 [deployment]
 run = ["sh", "-c", "javac -d ./bin src/main/java/com/sortalgo/**/*.java && java -cp ./bin com.sortalgo.Main"]

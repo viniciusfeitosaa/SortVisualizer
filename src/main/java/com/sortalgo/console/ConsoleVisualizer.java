@@ -16,8 +16,9 @@ public class ConsoleVisualizer {
      * 
      * @param algorithm O algoritmo de ordenação a ser visualizado
      * @param array O array a ser ordenado
+     * @param delayMs Tempo de espera entre passos (em milissegundos)
      */
-    public static void visualize(SortingAlgorithm algorithm, int[] array) {
+    public static void visualize(SortingAlgorithm algorithm, int[] array, int delayMs) {
         System.out.println("\n===== Visualizador de Algoritmo de Ordenação =====");
         System.out.println("Algoritmo: " + getAlgorithmName(algorithm));
         System.out.println("Descrição: " + algorithm.getDescription());
@@ -45,7 +46,7 @@ public class ConsoleVisualizer {
             
             // Pausa entre os passos
             try {
-                Thread.sleep(500);
+                Thread.sleep(delayMs);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
@@ -178,6 +179,16 @@ public class ConsoleVisualizer {
             }
         }
         return max;
+    }
+    
+    /**
+     * Método de sobrecarga que usa um delay padrão de 500ms.
+     * 
+     * @param algorithm O algoritmo de ordenação a ser visualizado
+     * @param array O array a ser ordenado
+     */
+    public static void visualize(SortingAlgorithm algorithm, int[] array) {
+        visualize(algorithm, array, 500);
     }
     
     /**
