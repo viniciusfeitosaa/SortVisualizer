@@ -119,9 +119,10 @@ public class ConsoleMain {
         System.out.println("3. Insertion Sort");
         System.out.println("4. Quick Sort");
         System.out.println("5. Merge Sort");
-        System.out.println("6. Comparar Todos");
+        System.out.println("6. Counting Sort");
+        System.out.println("7. Comparar Todos");
         
-        int opcao = lerInteiro("Digite sua escolha (1-6): ", 1, 6);
+        int opcao = lerInteiro("Digite sua escolha (1-7): ", 1, 7);
         
         SortingAlgorithm algoritmo = null;
         
@@ -142,6 +143,9 @@ public class ConsoleMain {
                 algoritmo = new MergeSort();
                 break;
             case 6:
+                algoritmo = new CountingSort();
+                break;
+            case 7:
                 compararAlgoritmos(array);
                 return;
         }
@@ -179,6 +183,7 @@ public class ConsoleMain {
         int[] arrayInsertion = arrayOriginal.clone();
         int[] arrayQuick = arrayOriginal.clone();
         int[] arrayMerge = arrayOriginal.clone();
+        int[] arrayCounting = arrayOriginal.clone();
         
         // Bubble Sort
         long inicioBubble = System.currentTimeMillis();
@@ -210,78 +215,33 @@ public class ConsoleMain {
         mergeSort.sort(arrayMerge);
         long fimMerge = System.currentTimeMillis();
         
+        // Counting Sort
+        long inicioCounting = System.currentTimeMillis();
+        CountingSort countingSort = new CountingSort();
+        countingSort.sort(arrayCounting);
+        long fimCounting = System.currentTimeMillis();
+        
         // Exibir resultados
-        System.out.println("Resultados da comparação para um array de " + arrayOriginal.length + " elementos:");
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Algoritmo      | Tempo (ms) | Comparações | Trocas");
-        System.out.println("-----------------------------------------------------");
-        System.out.printf("%-15s| %-11d| %-12d| %-7d\n", "Bubble Sort", (fimBubble - inicioBubble), bubbleSort.getComparisons(), bubbleSort.getSwaps());
-        System.out.printf("%-15s| %-11d| %-12d| %-7d\n", "Selection Sort", (fimSelection - inicioSelection), selectionSort.getComparisons(), selectionSort.getSwaps());
-        System.out.printf("%-15s| %-11d| %-12d| %-7d\n", "Insertion Sort", (fimInsertion - inicioInsertion), insertionSort.getComparisons(), insertionSort.getSwaps());
-        System.out.printf("%-15s| %-11d| %-12d| %-7d\n", "Quick Sort", (fimQuick - inicioQuick), quickSort.getComparisons(), quickSort.getSwaps());
-        System.out.printf("%-15s| %-11d| %-12d| %-7d\n", "Merge Sort", (fimMerge - inicioMerge), mergeSort.getComparisons(), mergeSort.getSwaps());
-        System.out.println("-----------------------------------------------------");
+        System.out.println("Resultados da comparação:");
+        System.out.println("Bubble Sort: " + (fimBubble - inicioBubble) + " ms");
+        System.out.println("Selection Sort: " + (fimSelection - inicioSelection) + " ms");
+        System.out.println("Insertion Sort: " + (fimInsertion - inicioInsertion) + " ms");
+        System.out.println("Quick Sort: " + (fimQuick - inicioQuick) + " ms");
+        System.out.println("Merge Sort: " + (fimMerge - inicioMerge) + " ms");
+        System.out.println("Counting Sort: " + (fimCounting - inicioCounting) + " ms");
         
-        System.out.println("\nDeseja visualizar algum desses algoritmos em detalhe?");
-        System.out.println("1. Bubble Sort");
-        System.out.println("2. Selection Sort");
-        System.out.println("3. Insertion Sort");
-        System.out.println("4. Quick Sort");
-        System.out.println("5. Merge Sort");
-        System.out.println("6. Voltar ao menu principal");
-        
-        int opcao = lerInteiro("Digite sua escolha (1-6): ", 1, 6);
-        
-        if (opcao < 6) {
-            SortingAlgorithm algoritmo = null;
-            
-            switch (opcao) {
-                case 1:
-                    algoritmo = new BubbleSort();
-                    break;
-                case 2:
-                    algoritmo = new SelectionSort();
-                    break;
-                case 3:
-                    algoritmo = new InsertionSort();
-                    break;
-                case 4:
-                    algoritmo = new QuickSort();
-                    break;
-                case 5:
-                    algoritmo = new MergeSort();
-                    break;
-            }
-            
-            System.out.println("\nEscolha a velocidade da visualização:");
-            System.out.println("1. Lenta");
-            System.out.println("2. Média");
-            System.out.println("3. Rápida");
-            int opcaoVelocidade = lerInteiro("Opção: ", 1, 3);
-            
-            int delayMs;
-            switch (opcaoVelocidade) {
-                case 1: delayMs = 800; break; // Lenta
-                case 2: delayMs = 300; break; // Média
-                default: delayMs = 100; break; // Rápida
-            }
-            
-            limparConsole();
-            // Clonar o array original para visualizar
-            ConsoleVisualizer.visualize(algoritmo, arrayOriginal.clone(), delayMs);
-            
-            System.out.println("\nPressione ENTER para continuar...");
-            scanner.nextLine();
-        }
+        System.out.println("\nPressione ENTER para continuar...");
+        scanner.nextLine();
     }
     
     /**
      * Imprime o cabeçalho do programa.
      */
     private static void imprimirCabecalho() {
-        System.out.println("======================================");
-        System.out.println("| VISUALIZADOR DE ALGORITMOS DE ORDENAÇÃO |");
-        System.out.println("======================================");
+        System.out.println("+--------------------------------------------------+");
+        System.out.println("|    VISUALIZADOR DE ALGORITMOS DE ORDENAÇÃO       |");
+        System.out.println("|    Desenvolvido como projeto educacional         |");
+        System.out.println("+--------------------------------------------------+");
     }
     
     /**
@@ -293,26 +253,18 @@ public class ConsoleMain {
     }
     
     /**
-     * Lê um número inteiro do usuário com validação.
+     * Lê um número inteiro do usuário dentro de um intervalo.
      */
     private static int lerInteiro(String mensagem, int min, int max) {
-        int valor = 0;
-        boolean valorValido = false;
-        
-        while (!valorValido) {
+        int valor;
+        do {
             System.out.print(mensagem);
             try {
                 valor = Integer.parseInt(scanner.nextLine().trim());
-                if (valor >= min && valor <= max) {
-                    valorValido = true;
-                } else {
-                    System.out.println("Por favor, digite um número entre " + min + " e " + max + ".");
-                }
             } catch (NumberFormatException e) {
-                System.out.println("Por favor, digite um número válido.");
+                valor = min - 1;
             }
-        }
-        
+        } while (valor < min || valor > max);
         return valor;
     }
 }

@@ -205,6 +205,8 @@ public class ConsoleVisualizer {
             return "Quick Sort";
         } else if (algorithm instanceof MergeSort) {
             return "Merge Sort";
+        } else if (algorithm instanceof CountingSort) {
+            return "Counting Sort";
         } else {
             return "Desconhecido";
         }

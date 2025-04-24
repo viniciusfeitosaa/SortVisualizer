@@ -23,6 +23,7 @@ public class Main {
         System.out.println("- Insertion Sort");
         System.out.println("- Quick Sort");
         System.out.println("- Merge Sort");
+        System.out.println("- Counting Sort");
         
         System.out.println("\nEscolha uma opção:");
         System.out.println("1. Iniciar modo interativo (definir array manualmente)");
@@ -234,6 +235,43 @@ public class Main {
         System.out.println("        }");
         System.out.println("    }");
         System.out.println("    // ... restante do código ...");
+        System.out.println("}");
+        System.out.println("```\n");
+        
+        // Counting Sort (versão simplificada)
+        System.out.println("=== COUNTING SORT ===");
+        System.out.println("```java");
+        System.out.println("public class CountingSort implements SortingAlgorithm {");
+        System.out.println("    @Override");
+        System.out.println("    public SortingEvent sort() {");
+        System.out.println("        // Find the maximum value in the array");
+        System.out.println("        int max = findMaxValue();");
+        System.out.println("        ");
+        System.out.println("        // Create count array");
+        System.out.println("        int[] count = new int[max + 1];");
+        System.out.println("        ");
+        System.out.println("        // Count the occurrences of each value");
+        System.out.println("        for (int value : array) {");
+        System.out.println("            count[value]++;");
+        System.out.println("        }");
+        System.out.println("        ");
+        System.out.println("        // Modify count array to store positions");
+        System.out.println("        for (int i = 1; i <= max; i++) {");
+        System.out.println("            count[i] += count[i - 1];");
+        System.out.println("        }");
+        System.out.println("        ");
+        System.out.println("        // Build the output array");
+        System.out.println("        int[] output = new int[array.length];");
+        System.out.println("        for (int i = array.length - 1; i >= 0; i--) {");
+        System.out.println("            output[count[array[i]] - 1] = array[i];");
+        System.out.println("            count[array[i]]--;");
+        System.out.println("            swaps++;");
+        System.out.println("        }");
+        System.out.println("        ");
+        System.out.println("        // Copy the output array back to the original array");
+        System.out.println("        System.arraycopy(output, 0, array, 0, array.length);");
+        System.out.println("        // ... restante do código ...");
+        System.out.println("    }");
         System.out.println("}");
         System.out.println("```\n");
         

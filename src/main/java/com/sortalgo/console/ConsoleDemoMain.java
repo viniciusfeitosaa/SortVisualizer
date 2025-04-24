@@ -20,7 +20,7 @@ public class ConsoleDemoMain {
         boolean sair = false;
         while (!sair) {
             exibirMenuPrincipal();
-            int opcao = lerInteiro("Escolha uma opção: ", 1, 7);
+            int opcao = lerInteiro("Escolha uma opção: ", 1, 8);
             
             switch (opcao) {
                 case 1: // Bubble Sort
@@ -38,10 +38,13 @@ public class ConsoleDemoMain {
                 case 5: // Merge Sort
                     executarDemonstracao(new MergeSort());
                     break;
-                case 6: // Demonstrar todos os algoritmos
+                case 6: // Counting Sort
+                    executarDemonstracao(new CountingSort());
+                    break;
+                case 7: // Demonstrar todos os algoritmos
                     demonstrarTodosAlgoritmos();
                     break;
-                case 7: // Sair
+                case 8: // Sair
                     sair = true;
                     break;
             }
@@ -169,6 +172,7 @@ public class ConsoleDemoMain {
         int[] arrayInsertion = arrayOriginal.clone();
         int[] arrayQuick = arrayOriginal.clone();
         int[] arrayMerge = arrayOriginal.clone();
+        int[] arrayCounting = arrayOriginal.clone();
         
         // Definir velocidade
         int delayMs = 200; // Velocidade média
@@ -206,7 +210,14 @@ public class ConsoleDemoMain {
         System.out.println("===== MERGE SORT =====");
         ConsoleVisualizer.visualize(new MergeSort(), arrayMerge, delayMs);
         
-        System.out.println("\nPressione ENTER para continuar...");
+        System.out.println("\nPressione ENTER para o próximo algoritmo...");
+        scanner.nextLine();
+        
+        limparConsole();
+        System.out.println("===== COUNTING SORT =====");
+        ConsoleVisualizer.visualize(new CountingSort(), arrayCounting, delayMs);
+        
+        System.out.println("\nPressione ENTER para voltar ao menu principal...");
         scanner.nextLine();
     }
     
@@ -214,25 +225,25 @@ public class ConsoleDemoMain {
      * Exibe o menu principal.
      */
     private static void exibirMenuPrincipal() {
-        limparConsole();
-        imprimirCabecalho();
-        System.out.println("\nEscolha um algoritmo para visualizar:");
+        System.out.println("\nEscolha um algoritmo para demonstrar:");
         System.out.println("1. Bubble Sort");
         System.out.println("2. Selection Sort");
         System.out.println("3. Insertion Sort");
         System.out.println("4. Quick Sort");
         System.out.println("5. Merge Sort");
-        System.out.println("6. Demonstrar todos os algoritmos");
-        System.out.println("7. Sair");
+        System.out.println("6. Counting Sort");
+        System.out.println("7. Demonstrar todos os algoritmos");
+        System.out.println("8. Sair");
     }
     
     /**
      * Imprime o cabeçalho do programa.
      */
     private static void imprimirCabecalho() {
-        System.out.println("==============================================");
-        System.out.println("|   VISUALIZADOR DE ALGORITMOS DE ORDENAÇÃO   |");
-        System.out.println("==============================================");
+        System.out.println("+--------------------------------------------------+");
+        System.out.println("|    VISUALIZADOR DE ALGORITMOS DE ORDENAÇÃO       |");
+        System.out.println("|    Desenvolvido como projeto educacional         |");
+        System.out.println("+--------------------------------------------------+");
     }
     
     /**
@@ -244,26 +255,18 @@ public class ConsoleDemoMain {
     }
     
     /**
-     * Lê um número inteiro do usuário com validação.
+     * Lê um número inteiro do usuário dentro de um intervalo.
      */
     private static int lerInteiro(String mensagem, int min, int max) {
-        int valor = 0;
-        boolean valorValido = false;
-        
-        while (!valorValido) {
+        int valor;
+        do {
             System.out.print(mensagem);
             try {
                 valor = Integer.parseInt(scanner.nextLine().trim());
-                if (valor >= min && valor <= max) {
-                    valorValido = true;
-                } else {
-                    System.out.println("Por favor, digite um número entre " + min + " e " + max + ".");
-                }
             } catch (NumberFormatException e) {
-                System.out.println("Por favor, digite um número válido.");
+                valor = min - 1;
             }
-        }
-        
+        } while (valor < min || valor > max);
         return valor;
     }
     
@@ -281,8 +284,10 @@ public class ConsoleDemoMain {
             return "Quick Sort";
         } else if (algorithm instanceof MergeSort) {
             return "Merge Sort";
+        } else if (algorithm instanceof CountingSort) {
+            return "Counting Sort";
         } else {
-            return "Algoritmo Desconhecido";
+            return "Desconhecido";
         }
     }
 }
